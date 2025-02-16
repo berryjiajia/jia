@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>＋＋表白</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: pink;
+            font-family: Arial, sans-serif;
+        }
+
+        #cat {
+            width: 200px;
+            transition: 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #noBtn {
+            background: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 引用同一文件夹中的图片 -->
+    <img id="cat" src="cat-happy.jpg" alt="汤汤的小猫">
+    <div class="buttons">
+        <button id="yesBtn" onclick="location.href='agree.html'">好的！</button>
+        <button id="noBtn">不要</button>
+    </div>
+
+    <script>
+        const cat = document.getElementById('cat');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        let clickCount = 0;
+        let yesSize = 1;
+
+        noBtn.addEventListener('click', function() {
+            clickCount++;
+
+            // 改变按钮大小
+            yesSize *= 1.2;
+            yesBtn.style.transform = `scale(${yesSize})`;
+
+            // 缩小不要按钮
+            const currentWidth = parseFloat(getComputedStyle(noBtn).width);
+            noBtn.style.width = (currentWidth * 0.8) + 'px';
+
+            // 更换小猫表情
+            if(clickCount === 1) {
+                cat.src = "cat-sad.jpg"; // 引用同一文件夹中的难过小猫图片
+            } else if(clickCount >= 3) {
+                cat.src = "cat-crying.jpg"; // 引用同一文件夹中的哭泣小猫图片
+            }
+
+            // 隐藏不要按钮
+            if(clickCount >= 5) {
+                noBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
